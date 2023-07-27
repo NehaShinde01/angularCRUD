@@ -1,1 +1,49 @@
-<p>todos works!</p>
+<nz-card>
+    
+      <!-- Add Todo Form -->
+      <form nz-form [formGroup]="todoForm" (ngSubmit)="addTodo()">
+        <nz-form-item>
+          <nz-form-control>
+            <input nz-input formControlName="note" placeholder="Write note" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <button nz-button nzType="primary" type="submit">Add Todo</button>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+  
+      <!-- Todo List -->
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input [formControl]="search" placeholder="search.." />
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <nz-table *ngIf="todos.length > 0" #table [nzData]="todos" nzFrontPagination [nzPageSize]="10">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Note</th>
+    
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let todo of todos">
+            <td>{{ todo.id}}</td>
+            <td>{{ todo.note }}</td>
+            <td>
+              <!-- <button nz-button nzType="primary" (click)="editTodo(todo)">Edit</button> -->
+              <button nz-button nzDanger (click)="deleteTodo(todo.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+
+      <!-- No Todos Message -->
+      <div *ngIf="todos.length === 0">No todos found.</div>
+    
+  </nz-card>
+  

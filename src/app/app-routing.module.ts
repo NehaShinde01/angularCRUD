@@ -8,13 +8,13 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   { path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule) },
   { path: 'dashborard', component: DashboardComponent },
-  { path: 'todo', component: TodosComponent },
+  { path: 'todos', component: TodosComponent },
   { path: 'users', component: UsersComponent },
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule, DashboardComponent, TodosComponent, UsersComponent]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -7,7 +7,7 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
@@ -15,12 +15,20 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { TodosComponent } from './todos/todos.component';
 import { UsersComponent } from './users/users.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
+    DashboardComponent,
     TodosComponent,
     UsersComponent
   ],
@@ -33,8 +41,13 @@ registerLocaleData(en);
     IconsProviderModule,
     NzLayoutModule,
     NzMenuModule,
-    TodosComponent,
-    UsersComponent,
+    NzTableModule,
+    NzFormModule,
+    NzCardModule,
+    ReactiveFormsModule,
+    NzButtonModule,
+    NzInputModule,
+    NzTypographyModule
 
   ],
   providers: [
