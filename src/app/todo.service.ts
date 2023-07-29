@@ -32,4 +32,7 @@ export class TodoService {
   searchTodo(query: string) {
     return this.http.get(`${this.apiUrl}/search/${query}`);
   }
+  editTodo(todo:any){
+    return this.http.post(this.apiUrl, todo);
+  }
 }

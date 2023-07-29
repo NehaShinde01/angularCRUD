@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, numberAttribute } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-todos',
@@ -10,11 +11,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class TodosComponent {
   todos: any[] = [];
 
+  selectedTodo: any;
+
   todoForm = new FormGroup({
     note: new FormControl(''),
   });
 
   search = new FormControl('');
+
 
   constructor(private _todoService: TodoService) {
 
@@ -31,17 +35,25 @@ export class TodosComponent {
     })
   }
 
-  //when following function is called, the list of todos is refresh
+  //When following function is called, the list of todos is refresh
   getTodos() {
     this._todoService.getTodos().subscribe((todos: any) => {
       this.todos = todos;
     });
   }
 
+  onSubmitHandler() {
+    if (this.selectedTodo) {
+       this.updateTodo()
+    } else {
+      this.addTodo();
+    }
+  }
+
   addTodo() {
     this._todoService.createTodo(this.todoForm.value).subscribe(() => {
+      this.todoForm.reset();
       this.getTodos();
-
     });
   }
 
@@ -51,4 +63,16 @@ export class TodosComponent {
     })
   }
 
+  selectTodo(todo: any) {
+    this.selectedTodo = todo;
+    this.todoForm.patchValue(todo);
+  }
+  updateTodo(){
+    this._todoService.updateTodo(this.selectedTodo.id, this.todoForm.value).subscribe(()=>{
+      this.selectedTodo = null;
+      this.todoForm.reset();
+      this.getTodos();
+    })
+
+  }
 }
