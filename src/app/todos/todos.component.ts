@@ -2,6 +2,7 @@ import { Component, numberAttribute } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgForm } from '@angular/forms';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-todos',
@@ -10,11 +11,13 @@ import { NgForm } from '@angular/forms';
 })
 export class TodosComponent {
   todos: any[] = [];
+  users: any[] = [];
 
   selectedTodo: any;
 
   todoForm = new FormGroup({
     note: new FormControl(''),
+    assignedTo: new FormControl(null)
   });
 
   search = new FormControl('');
@@ -28,9 +31,11 @@ export class TodosComponent {
    */
   ngOnInit() {
     this.getTodos();
+    this.getUsers();
     this.search.valueChanges.subscribe((query: any) => {
       this._todoService.searchTodo(query).subscribe(((todos: any) => {
         this.todos = todos || [];
+        
       }));
     })
   }
@@ -39,12 +44,13 @@ export class TodosComponent {
   getTodos() {
     this._todoService.getTodos().subscribe((todos: any) => {
       this.todos = todos;
+
     });
   }
 
   onSubmitHandler() {
     if (this.selectedTodo) {
-       this.updateTodo()
+      this.updateTodo();
     } else {
       this.addTodo();
     }
@@ -55,6 +61,7 @@ export class TodosComponent {
       this.todoForm.reset();
       this.getTodos();
     });
+    this._todoService
   }
 
   deleteTodo(id: number) {
@@ -67,12 +74,18 @@ export class TodosComponent {
     this.selectedTodo = todo;
     this.todoForm.patchValue(todo);
   }
-  updateTodo(){
-    this._todoService.updateTodo(this.selectedTodo.id, this.todoForm.value).subscribe(()=>{
+
+  updateTodo() {
+    this._todoService.updateTodo(this.selectedTodo.id, this.todoForm.value).subscribe(() => {
       this.selectedTodo = null;
       this.todoForm.reset();
       this.getTodos();
     })
+  }
 
+  getUsers() {
+    this._todoService.getUsers().subscribe((users: any) => {
+      this.users = users;
+    });
   }
 }

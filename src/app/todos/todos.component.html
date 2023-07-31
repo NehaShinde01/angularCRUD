@@ -1,22 +1,35 @@
 <nz-card>
     
       <!-- Add Todo Form -->
-      <form nz-form [formGroup]="todoForm" (ngSubmit)="onSubmitHandler()">
+      <form nz-form [formGroup]="todoForm" (ngSubmit)="onSubmitHandler()" >
         <nz-form-item>
           <nz-form-control>
-            <input nz-input formControlName="note" placeholder="Write note" />
+            <input nz-input nz-dropdown formControlName="note" placeholder="Write note" />
           </nz-form-control>
         </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-control>
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="select users" formControlName="assignedTo" >
+              <nz-option *ngFor="let user of users" [nzLabel]="user.name" [nzValue]="user"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
         <nz-form-item>
           <nz-form-control>
             <button nz-button nzType="primary" type="submit">{{ selectedTodo ? 'Update' : 'Add' }} Todo</button>
           </nz-form-control>
         </nz-form-item>
       </form>
-  
+      <button nz-button *nzSpaceItem nzDanger (click)="addUser()">Add User</button>
+</nz-card>
+<br />
+<nz-card>
       <!-- Todo List -->
       <nz-form-item>
         <nz-form-control>
+          <nz-form-label [nzSpan]="6" nzFor="search">Search</nz-form-label>
           <input nz-input [formControl]="search" placeholder="search.." />
         </nz-form-control>
       </nz-form-item>
@@ -27,6 +40,8 @@
           <tr>
             <th>Id</th>
             <th>Note</th>
+            <th>Assigned To</th>
+            <th>Action</th>
     
           </tr>
         </thead>
@@ -34,10 +49,13 @@
           <tr *ngFor="let todo of todos">
             <td>{{ todo.id}}</td>
             <td>{{ todo.note }}</td>
+            <td>{{ todo.assignedTo?.name }}</td>
             <td>
-              <!-- <button nz-button nzType="primary" (click)="editTodo(todo)">Edit</button> -->
-              <button  nz-button (click)="selectTodo(todo)">Update Todo</button>
-              <button nz-button nzDanger (click)="deleteTodo(todo.id)">Delete</button>
+              <nz-space>
+                <!-- <button nz-button nzType="primary" (click)="editTodo(todo)">Edit</button> -->
+                <button nz-button *nzSpaceItem (click)="selectTodo(todo)" (onhover)="getUsers()">Update</button> 
+                <button nz-button *nzSpaceItem nzDanger (click)="deleteTodo(todo.id)">Delete</button>
+              </nz-space>
             </td>
           </tr>
         </tbody>

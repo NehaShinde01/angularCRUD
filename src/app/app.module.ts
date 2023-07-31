@@ -22,6 +22,10 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzSpaceModule } from 'ng-zorro-antd/space'
 
 registerLocaleData(en);
 
@@ -47,8 +51,11 @@ registerLocaleData(en);
     ReactiveFormsModule,
     NzButtonModule,
     NzInputModule,
-    NzTypographyModule
-
+    NzTypographyModule,
+    NzDropDownModule,
+    NzCascaderModule,
+    NzSelectModule,
+    NzSpaceModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

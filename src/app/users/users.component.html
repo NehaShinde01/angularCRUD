@@ -1,1 +1,58 @@
 <p>users works!</p>
+<nz-card>
+    <nz-form-item>
+        <nz-form-control>
+            <nz-form-label [nzSpan]="6" nzFor="id">User ID</nz-form-label>
+          <input nz-input formControlName="id" placeholder="Write id" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+            <nz-form-label [nzSpan]="6" nzFor="name">User Name</nz-form-label>
+          <input nz-input formControlName="name" placeholder="Write name" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+            <nz-form-label [nzSpan]="6" nzFor="id">User Age</nz-form-label>
+          <input nz-input formControlName="age" placeholder="Write age" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+            <nz-form-label [nzSpan]="6" nzFor="id">User Email</nz-form-label>
+          <input nz-input formControlName="email" placeholder="Write email" />
+        </nz-form-control>
+      </nz-form-item>
+</nz-card>
+<nz-card>
+    <nz-table *ngIf="users.length > 0" #table [nzData]="users" nzFrontPagination [nzPageSize]="10">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.id}}</td>
+                <td>{{ user.Name }}</td>
+                <td>{{ user.Age }}</td>
+                <td>{{ user.Email}}</td>
+                <td>
+                    <nz-space>
+                        <button nz-button >Update User</button>
+                        <button nz-button nzDanger >Delete</button>
+                    </nz-space>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+    <!-- No Users Message -->
+    <div *ngIf="users.length === 0">No users found.</div>
+
+</nz-card>

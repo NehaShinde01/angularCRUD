@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+//import {users} from '../users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
   private apiUrl = 'http://localhost:3000/todos';
+  private apiUrl2= 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) { }
 
@@ -34,5 +36,11 @@ export class TodoService {
   }
   editTodo(todo:any){
     return this.http.post(this.apiUrl, todo);
+  }
+  /**
+   * get user list from server
+   */
+  getUsers() {
+    return this.http.get(this.apiUrl2);
   }
 }
